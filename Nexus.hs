@@ -35,4 +35,13 @@ hylot f g = h
 hylot f g p h x | p x       = f x
                 | otherwise = g (fmap (hylot f g p h) (h x))
 
+-- annotation!
 data LTree a = LLeaf a | LNode a [LTree a] deriving (Show, Eq)
+
+fill f g = foldt (lleaf f) (lnode g)
+
+lleaf f x = LLeaf (f x)
+lnode g ts = LNode (g (fmap label ts)) ts
+
+label (LLeaf x) = x
+label (LNode x _) = x
