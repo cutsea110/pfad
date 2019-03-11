@@ -29,12 +29,12 @@ hylot f g = h
             Left x -> f (Left x)
             Right xs -> f (Right (fmap h xs))
 --}
-
+{--
 -- hylot f g p v h = foldt f g . unfoldt p v h
 -- hylot f g p h x = if p x then f x else g (fmap (hylot f g p h) (h x))
 hylot f g p h x | p x       = f x
                 | otherwise = g (fmap (hylot f g p h) (h x))
-
+--}
 -- annotation!
 data LTree a = LLeaf a | LNode a [LTree a] deriving (Show, Eq)
 
@@ -45,3 +45,5 @@ lnode g ts = LNode (g (fmap label ts)) ts
 
 label (LLeaf x) = x
 label (LNode x _) = x
+
+hylot f g p h = label . fill f g . unfoldt p id h
