@@ -34,3 +34,5 @@ hylot f g = h
 -- hylot f g p h x = if p x then f x else g (fmap (hylot f g p h) (h x))
 hylot f g p h x | p x       = f x
                 | otherwise = g (fmap (hylot f g p h) (h x))
+
+data LTree a = LLeaf a | LNode a [LTree a] deriving (Show, Eq)
