@@ -46,4 +46,10 @@ lnode g ts = LNode (g (fmap label ts)) ts
 label (LLeaf x) = x
 label (LNode x _) = x
 
-hylot f g p h = label . fill f g . unfoldt p id h
+-- hylot f g p h = label . fill f g . unfoldt p id h
+
+hylot f g h = foldt f g . mkTree h
+  where
+    mkTree = unfoldt single id
+    single [a] = True
+    single _   = False
