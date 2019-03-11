@@ -49,7 +49,17 @@ label (LNode x _) = x
 -- hylot f g p h = label . fill f g . unfoldt p id h
 
 hylot f g h = foldt f g . mkTree h
-  where
-    mkTree = unfoldt single id
-    single [a] = True
-    single _   = False
+
+mkTree = unfoldt single id
+
+single [a] = True
+single _   = False
+
+split xs = [take n xs, drop n xs] where n = length xs `div` 2
+
+isegs xs = [init xs, tail xs]
+
+recover xss = head (head xss) : last xss
+
+minors [x,y]  = [[x],[y]]
+minors (x:xs) = fmap (x:) (minors xs) ++ [xs]
