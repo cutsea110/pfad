@@ -13,3 +13,4 @@ unfoldt psi = v
       Left x -> Leaf x
       Right xs -> Node (fmap v xs)
 
+hylot f g = foldt f . unfoldt g
