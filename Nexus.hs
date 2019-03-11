@@ -13,4 +13,11 @@ unfoldt psi = v
       Left x -> Leaf x
       Right xs -> Node (fmap v xs)
 
-hylot f g = foldt f . unfoldt g
+-- hylot f g = foldt f . unfoldt g
+
+-- deforestation!
+hylot f g = h
+  where
+    h x = case g x of
+            Left x -> f (Left x)
+            Right xs -> f (Right (fmap h xs))
